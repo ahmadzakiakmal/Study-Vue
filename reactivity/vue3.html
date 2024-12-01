@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reactivity</title>
+</head>
+<body>
+  <h1 id="h1">???</h1>
+  <p id="p">???</p>
+  <script>
+    const heading = document.getElementById("h1");
+    const paragraph = document.getElementById("p");
+    const data = {
+      "title" : "Vue 3 Reactivity",
+      "content" : "Lorem ipsum dolor sit amet"
+    }
+
+    const dataProxy = new Proxy(data, {
+      get(target, property) {
+        console.log(`Accessed property ${property} from data`);
+        return Reflect.get(target, property);
+      },
+      set(target, property, newValue) {
+        console.log(`Changed property ${property} in data to ${newValue}`);
+        if(!Reflect.set(target, property, newValue)) {
+          console.log(`Error setting property ${property} in data to ${newValue}`)
+          return false
+        }
+        updateDOM(property, newValue);
+        return true
+      }
+    })
+
+    const domMapping = {
+      title: heading,
+      content: paragraph
+    }
+
+    function updateDOM(property, newValue) {
+      const propertyMappingExist = Object.keys(domMapping).includes(property);
+      if(!propertyMappingExist) {
+        console.log("No mapping of property to DOM found")
+      }
+      console.log(`Updated the DOM element with new value ${newValue}`)
+      domMapping[property].innerText = newValue;
+    }
+  </script>
+</body>
+</html>
