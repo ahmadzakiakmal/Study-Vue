@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Singleton & Factory Pattern</title>
+</head>
+<body>
+  <h1 id="h1">Singleton & Factory Pattern</h1>
+  <p id="p">Shared by all or independent for each</p>
+  <script>
+    // Singleton Pattern
+    // Data consistency, shared by all
+    // Passes reference instead of copies
+    const city = {
+      name : "London"
+    };
+    const insA = city;
+    const insB = city;
+    console.log("Singleton Pattern")
+    console.log("Changing one changes the others");
+    insA.name = "Liverpool";
+    console.log("A", insA.name);
+    console.log("B", insB.name);
+
+    // Factory Pattern
+    // Independent for each one
+    function CityFactory() {
+      return {
+        name : "Liverpool"
+      };
+    }
+    const insC = CityFactory();
+    const insD = CityFactory();
+    console.log("Factory Pattern");
+    console.log("Changing one doesnt change the others");
+    insC.name = "London";
+    console.log("C", insC.name);
+    console.log("D", insD.name);
+  </script>
+</body>
+</html>
