@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <title>Vue Basics</title>
+  </head>
+  <body>
+    <main id="vue_app">
+      <h1>Vue Basics</h1>
+      <h2>Setup - Not reactive by default</h2>
+      <p>{{street}}</p>
+      <h2>Data - Reactive by default</h2>
+      <p>{{city}}</p>
+      <p>{{nation}}</p>
+
+      <br />
+
+      <input
+        :placeholder="isLoggedIn ? 'Log in to search' : 'Search...'"
+        :disabled="!isLoggedIn"
+      />
+      <button @click="isLoggedIn = !isLoggedIn">{{isLoggedIn ? 'Log Out' : 'Log In'}}</button>
+    </main>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script>
+      let app = Vue.createApp({
+        setup() {
+          return {
+            street: "Northumberland Street",
+          };
+        },
+        data() {
+          return {
+            city: "London",
+            nation: "UK",
+            isLoggedIn: false,
+          };
+        },
+        computed() {
+          return {
+            placeholderText() {
+              return isLoggedIn ? "Log in to search" : "Search...";
+            },
+            buttonText() {
+              return isLoggedIn ? "Log Out" : "Log In";
+            },
+          };
+        },
+      });
+
+      let vm = app.mount("#vue_app");
+    </script>
+  </body>
+</html>
