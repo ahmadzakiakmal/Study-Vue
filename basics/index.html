@@ -20,14 +20,23 @@
       <br />
 
       <input
-        :placeholder="isLoggedIn ? 'Log in to search' : 'Search...'"
+        :placeholder="placeholderText"
         :disabled="!isLoggedIn"
       />
-      <button @click="isLoggedIn = !isLoggedIn">{{isLoggedIn ? 'Log Out' : 'Log In'}}</button>
+      <button @click="isLoggedIn = !isLoggedIn">{{buttonText}}</button>
 
+      <h2>Array iteration</h2>
       <ul>
         <li v-for="(city, index) in cities" :key="index">{{`[${index}]`}} {{city}}</li>
       </ul>
+
+      <h2>Object property iteration</h2>
+      <ul>
+        <li v-for="(value, prop, index) in nation" :key="index">{{`[${index}]`}} {{prop}}: {{value}}</li>
+      </ul>
+
+      <h2>Using Computes</h2>
+      <p>If I was born in {{yearBorn}}, I am now {{age}} years old</p>
     </main>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script>
@@ -41,19 +50,21 @@
           return {
             city: "London",
             cities: ["London", "Liverpool", "Manchester"],
-            nation: "UK",
+            nation: {name: "United Kingdom", currency: "Pound Sterling", capital: "London"},
             isLoggedIn: false,
+            yearBorn: 2002
           };
         },
-        computed() {
-          return {
-            placeholderText() {
-              return isLoggedIn ? "Log in to search" : "Search...";
-            },
-            buttonText() {
-              return isLoggedIn ? "Log Out" : "Log In";
-            },
-          };
+        computed: {
+          placeholderText() {
+            return this.isLoggedIn ? "Log in to search" : "Search...";
+          },
+          buttonText() {
+            return this.isLoggedIn ? "Log Out" : "Log In";
+          },
+          age() {
+            return new Date().getFullYear() - this.yearBorn
+          }
         },
       });
 
