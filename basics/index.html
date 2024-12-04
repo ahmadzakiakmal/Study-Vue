@@ -64,6 +64,16 @@
           },
           age() {
             return new Date().getFullYear() - this.yearBorn
+          },
+          nationInformation: {
+            get() {
+              return `the nation ${this.nation.name}'s capital is ${this.nation.capital}, its currency is ${this.nation.currency}`
+            },
+            set(value) {
+              this.nation.name = value.name;
+              this.nation.capital = value.capital;
+              this.nation.currency = value.currency;
+            }
           }
         },
       });
