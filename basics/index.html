@@ -24,6 +24,10 @@
         :disabled="!isLoggedIn"
       />
       <button @click="isLoggedIn = !isLoggedIn">{{isLoggedIn ? 'Log Out' : 'Log In'}}</button>
+
+      <ul>
+        <li v-for="(city, index) in cities">{{`[${index}]`}} {{city}}</li>
+      </ul>
     </main>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script>
@@ -36,6 +40,7 @@
         data() {
           return {
             city: "London",
+            cities: ["London", "Liverpool", "Manchester"],
             nation: "UK",
             isLoggedIn: false,
           };
